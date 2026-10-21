@@ -107,4 +107,74 @@ doc/                      설계 결정 기록(ADR), 체크리스트, 검증 설
 submission/               결과보고서, 발표 PPT·PDF, 대본, 화면 캡처
 ```
 
-`eval/`의 테스트와 평가 스크립트는 수업 제공 기본 프로젝트(그래프, MCP 서버, 샘플 데이터)가 같은 위치에 있어야 실행된다. 결과 파일(`eval/*-20261021.*`, `eval/results.md`)은 실행 결과 그대로 올렸다.
+재현 방법은 다음 절에 정리했다.
+
+## 7. 재현 방법
+
+### 7.1 이 저장소만으로 재현되는 것
+
+Python 3.11 이상이면 되고 설치할 패키지는 없다.
+
+```bash
+git clone https://github.com/gkyeon/ai-capstone-gkyeon.git
+cd ai-capstone-gkyeon
+python3 eval/eval_verifier_v2.py      # 검증기 개선 전후 비교 (42개 사례)
+python3 eval/test_evaluation_exit.py  # 평가 불일치가 실패 종료로 이어지는지 확인
+```
+
+`eval_verifier_v2.py`는 개선 직전 검증기 스냅샷([`eval/baseline/verifier_before_v2.py`](eval/baseline/verifier_before_v2.py))과 개선 후 [`agent/verifier.py`](agent/verifier.py)에 같은 사례를 넣어 비교한다. 출력은 사례 묶음별(T 28개, U 6개, V 8개) 개선 전후의 정상 통과·오류 차단 수이며, 4.2절의 값(예: T는 정상 7/14 → 14/14, 오류 6/14 → 14/14)과 같아야 한다. 개선 후 결과가 기대와 다른 사례가 있으면 해당 사례를 출력하고 종료 코드 1로 끝난다. 저장소 파일은 수정하지 않는다.
+
+### 7.2 수업 제공 기본 프로젝트가 필요한 것
+
+| 항목 | 스크립트 | 추가로 필요한 것 |
+|---|---|---|
+| 그래프·서브에이전트·근거 점검 테스트 | `eval/test_*.py`, `eval/run_tests.sh` | 기본 프로젝트의 `agent/`, `data/`와 원본을 수정한 파일 |
+| 대상 시스템·검증 전후 비교 | `eval/eval_targets.py`, `eval/eval_validator.py` | 위와 동일 |
+| 매뉴얼 검색, 임베딩 비용 | `eval/eval_search.py`, `eval/measure_embedding.py` | 위와 동일 + Ollama, `qwen3-embedding:0.6b` |
+| 실모델 비교 | `eval/run_live_ollama.py` | 위와 동일 + `qwen3:8b`, `qwen2.5:0.5b` |
+
+원본을 수정한 파일(`server.py`, `graph.py`, 노드 모듈, `web_chat.html` 등)이 이 저장소에 없어서 **이 저장소만으로 전체 에이전트를 재현할 수는 없다.** 해당 실험의 결과는 `eval/`에 저장된 결과 파일과 결과보고서 5절로 확인한다.
+
+## 8. 화면 사용법
+
+화면(`web_chat.html`)은 수업 제공 파일을 수정한 것이라 이 저장소에 없다. 아래는 전체 프로젝트가 있는 환경 기준의 설명이다.
+
+실행은 백엔드와 화면 서버를 각각 띄운다. 모의 모델은 Ollama 생성 모델 없이 전체 흐름을 보여준다. 의미 검색에는 임베딩 모델이 필요하며, 없으면 `RETRIEVAL_MODE=legacy`로 실행한다.
+
+```bash
+# 터미널 1: 백엔드 (포트 8100)
+LLM_BACKEND=fake VALIDATOR_MODE=grounded RETRIEVAL_MODE=semantic python server.py
+# 터미널 2: 화면 (포트 8600) -> http://127.0.0.1:8600
+python -m uvicorn web_demo_server:app --host 127.0.0.1 --port 8600
+```
+
+사용 순서는 질문을 입력하거나 예시 칩(로그인 지연, 결제 CPU 급증, 캐시 메모리 확인)을 누르고 "진단 시작"을 누르는 것이다. 완료되면 다음이 표시된다.
+
+| 화면 영역 | 내용 |
+|---|---|
+| 진단 기록 | 질문, 조사·작성·검증 단계 기록(접힘), 최종 응답, 근거 비교표(시스템·항목·수집값·답변값·판정) |
+| 매뉴얼 검색 근거 | 의미 검색 후보와 유사도 점수. 점수는 확률이 아니다 |
+| 진행 단계 | 자료 조사, 답변 작성, 근거 검증, 결과 제공 |
+| 검증 범위 | 대조한 항목(시스템명, CPU·메모리 수치)과 검증하지 않는 것 |
+| 상단 상태 | 검사 통과, 검증 실패, 자료 부족·검증 불가, 연결 확인 필요 |
+
+시연에 쓴 질문과 기대 동작은 다음과 같다.
+
+| 질문 또는 설정 | 기대 동작 |
+|---|---|
+| `auth-service 로그인 지연 원인 진단해줘` | 검사 통과, 비교표의 수집값과 답변값 일치 |
+| `billing-service 응답이 느려요` | 모니터링 대상에 없는 시스템이라는 안내. 모의 모델은 연관 시스템(web-01)을 함께 조사해 그 기준으로 답하고, 실모델에서 근거가 없으면 "자료 부족으로 검증할 수 없다"로 끝남 |
+| `FAKE_DRAFT_MODE=always_wrong`로 백엔드 실행 | 3회 재작성 후 검증 실패, 불일치 사유와 수집값 표시 |
+| 위 설정에 `VALIDATOR_MODE=legacy` | 개선 전 동작. 틀린 수치가 그대로 최종 응답으로 나옴 |
+
+`FAKE_DRAFT_MODE`의 값은 `normal`, `wrong_cpu_once`(1회만 틀리고 재작성으로 정정), `cross_system`(다른 시스템 수치 혼용), `always_wrong`이다.
+
+## 9. 실험 환경
+
+| 항목 | 내용 |
+|---|---|
+| 장비·OS | Apple Silicon(arm64), macOS 26.5 |
+| Python | 3.14 (전체 프로젝트), 3.11 (7.1의 단독 실행 확인) |
+| 주요 패키지 | langgraph 1.2.16, langchain-core 1.6.12, langsmith 0.14, fastmcp 4.1, mcp 2.3, fastapi 0.150, uvicorn 0.54, pydantic 2.14 |
+| 로컬 모델(Ollama 0.33) | 작성 `qwen3:8b`, 분류·계획 `qwen2.5:0.5b`, 임베딩 `qwen3-embedding:0.6b` |
+| 기타 | LangSmith 추적은 1회 실행해 기록 구조만 확인, OpenAI 실모델은 사용하지 않음 |
