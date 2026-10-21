@@ -1,0 +1,30 @@
+{
+  "classifier_probe": [
+    {
+      "alert": "응답을 받기까지 오래 걸립니다",
+      "expected": "high-latency",
+      "actual": "db-down"
+    },
+    {
+      "alert": "저장 공간이 가득 찼습니다",
+      "expected": "disk-full",
+      "actual": "db-down"
+    },
+    {
+      "alert": "메모리 사용량이 계속 증가합니다",
+      "expected": "memory-leak",
+      "actual": "db-down"
+    },
+    {
+      "alert": "CPU usage is high",
+      "expected": "cpu-spike",
+      "actual": "cpu-spike"
+    }
+  ],
+  "partial_failure_probe": {
+    "returned": false,
+    "error": "ValueError",
+    "message": "controlled failure"
+  },
+  "scope": "Local functions with controlled alerts and mocked MCP; not live model end-to-end results."
+}

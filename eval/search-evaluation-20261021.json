@@ -1,0 +1,366 @@
+[
+  {
+    "query": "로그인 요청은 성공하지만 응답 속도가 느립니다",
+    "expected": "high-latency",
+    "legacy": "db-down",
+    "semantic": "high-latency",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "high-latency",
+        "score": 0.6653,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "network-timeout",
+        "score": 0.4718,
+        "title": "Runbook: 네트워크 타임아웃 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.4323,
+        "title": "Runbook: CPU 급증 대응 절차"
+      }
+    ],
+    "legacy_seconds": 5.167035851627588e-06,
+    "semantic_seconds": 0.375472208019346
+  },
+  {
+    "query": "커넥션 풀 사용률이 95%까지 올라갔어요",
+    "expected": "high-latency",
+    "legacy": "db-down",
+    "semantic": null,
+    "status": "no_match",
+    "candidates": [
+      {
+        "id": "high-latency",
+        "score": 0.5414,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "db-down",
+        "score": 0.5211,
+        "title": "Runbook: DB Down 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.4672,
+        "title": "Runbook: CPU 급증 대응 절차"
+      }
+    ],
+    "legacy_seconds": 2.4042034056037664e-05,
+    "semantic_seconds": 0.030942415993195027
+  },
+  {
+    "query": "프로세서 사용률이 치솟고 처리량이 떨어졌어요",
+    "expected": "cpu-spike",
+    "legacy": "db-down",
+    "semantic": "cpu-spike",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "cpu-spike",
+        "score": 0.6695,
+        "title": "Runbook: CPU 급증 대응 절차"
+      },
+      {
+        "id": "high-latency",
+        "score": 0.5633,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "disk-full",
+        "score": 0.5552,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      }
+    ],
+    "legacy_seconds": 1.1791998986154795e-05,
+    "semantic_seconds": 0.02921545901335776
+  },
+  {
+    "query": "CPU usage reached 95 percent",
+    "expected": "cpu-spike",
+    "legacy": "cpu-spike",
+    "semantic": "cpu-spike",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "cpu-spike",
+        "score": 0.7267,
+        "title": "Runbook: CPU 급증 대응 절차"
+      },
+      {
+        "id": "disk-full",
+        "score": 0.539,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      },
+      {
+        "id": "memory-leak",
+        "score": 0.5172,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      }
+    ],
+    "legacy_seconds": 1.2999982573091984e-05,
+    "semantic_seconds": 0.055961667036172
+  },
+  {
+    "query": "프로세스가 할당받은 메모리를 반환하지 않습니다",
+    "expected": "memory-leak",
+    "legacy": "db-down",
+    "semantic": "memory-leak",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "memory-leak",
+        "score": 0.6561,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      },
+      {
+        "id": "disk-full",
+        "score": 0.4921,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.4106,
+        "title": "Runbook: CPU 급증 대응 절차"
+      }
+    ],
+    "legacy_seconds": 1.8167018424719572e-05,
+    "semantic_seconds": 0.031415208999533206
+  },
+  {
+    "query": "heap keeps growing after garbage collection",
+    "expected": "memory-leak",
+    "legacy": "memory-leak",
+    "semantic": "memory-leak",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "memory-leak",
+        "score": 0.5618,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.4716,
+        "title": "Runbook: CPU 급증 대응 절차"
+      },
+      {
+        "id": "disk-full",
+        "score": 0.4349,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      }
+    ],
+    "legacy_seconds": 9.124982170760632e-06,
+    "semantic_seconds": 0.02134012500755489
+  },
+  {
+    "query": "요청이 시간 제한을 초과하며 연결이 끊깁니다",
+    "expected": "network-timeout",
+    "legacy": "db-down",
+    "semantic": "high-latency",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "high-latency",
+        "score": 0.6419,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "network-timeout",
+        "score": 0.6045,
+        "title": "Runbook: 네트워크 타임아웃 대응 절차"
+      },
+      {
+        "id": "db-down",
+        "score": 0.4842,
+        "title": "Runbook: DB Down 대응 절차"
+      }
+    ],
+    "legacy_seconds": 1.4208955690264702e-05,
+    "semantic_seconds": 0.03118574997643009
+  },
+  {
+    "query": "network timeout between services",
+    "expected": "network-timeout",
+    "legacy": "network-timeout",
+    "semantic": "network-timeout",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "network-timeout",
+        "score": 0.7568,
+        "title": "Runbook: 네트워크 타임아웃 대응 절차"
+      },
+      {
+        "id": "high-latency",
+        "score": 0.565,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "db-down",
+        "score": 0.4613,
+        "title": "Runbook: DB Down 대응 절차"
+      }
+    ],
+    "legacy_seconds": 9.790994226932526e-06,
+    "semantic_seconds": 0.020895833964459598
+  },
+  {
+    "query": "로그 파일이 쌓여 파일을 더 저장할 수 없어요",
+    "expected": "disk-full",
+    "legacy": "db-down",
+    "semantic": "disk-full",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "disk-full",
+        "score": 0.6367,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      },
+      {
+        "id": "memory-leak",
+        "score": 0.4874,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.4018,
+        "title": "Runbook: CPU 급증 대응 절차"
+      }
+    ],
+    "legacy_seconds": 1.5583005733788013e-05,
+    "semantic_seconds": 0.034563125052955
+  },
+  {
+    "query": "disk space is full",
+    "expected": "disk-full",
+    "legacy": "disk-full",
+    "semantic": "disk-full",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "disk-full",
+        "score": 0.7585,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      },
+      {
+        "id": "memory-leak",
+        "score": 0.5274,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.4924,
+        "title": "Runbook: CPU 급증 대응 절차"
+      }
+    ],
+    "legacy_seconds": 1.4999997802078724e-05,
+    "semantic_seconds": 0.019457290996797383
+  },
+  {
+    "query": "데이터베이스에 접속할 수 없고 DB 프로세스가 죽었습니다",
+    "expected": "db-down",
+    "legacy": "db-down",
+    "semantic": "db-down",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "db-down",
+        "score": 0.5976,
+        "title": "Runbook: DB Down 대응 절차"
+      },
+      {
+        "id": "high-latency",
+        "score": 0.4217,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "network-timeout",
+        "score": 0.4023,
+        "title": "Runbook: 네트워크 타임아웃 대응 절차"
+      }
+    ],
+    "legacy_seconds": 5.00003807246685e-06,
+    "semantic_seconds": 0.027870374964550138
+  },
+  {
+    "query": "database down and connections refused",
+    "expected": "db-down",
+    "legacy": "db-down",
+    "semantic": "db-down",
+    "status": "matched",
+    "candidates": [
+      {
+        "id": "db-down",
+        "score": 0.701,
+        "title": "Runbook: DB Down 대응 절차"
+      },
+      {
+        "id": "high-latency",
+        "score": 0.5015,
+        "title": "Runbook: 응답 지연(High Latency) 대응 절차"
+      },
+      {
+        "id": "network-timeout",
+        "score": 0.4779,
+        "title": "Runbook: 네트워크 타임아웃 대응 절차"
+      }
+    ],
+    "legacy_seconds": 6.500049494206905e-06,
+    "semantic_seconds": 0.03478874999564141
+  },
+  {
+    "query": "오늘 식사 메뉴를 추천해줘",
+    "expected": null,
+    "legacy": "db-down",
+    "semantic": null,
+    "status": "no_match",
+    "candidates": [
+      {
+        "id": "memory-leak",
+        "score": 0.3067,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      },
+      {
+        "id": "cpu-spike",
+        "score": 0.3059,
+        "title": "Runbook: CPU 급증 대응 절차"
+      },
+      {
+        "id": "disk-full",
+        "score": 0.302,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      }
+    ],
+    "legacy_seconds": 4.958012141287327e-06,
+    "semantic_seconds": 0.02822825004113838
+  },
+  {
+    "query": "회사 휴가 규정 알려줘",
+    "expected": null,
+    "legacy": "db-down",
+    "semantic": null,
+    "status": "no_match",
+    "candidates": [
+      {
+        "id": "disk-full",
+        "score": 0.343,
+        "title": "Runbook: 디스크 용량 부족 대응 절차"
+      },
+      {
+        "id": "network-timeout",
+        "score": 0.335,
+        "title": "Runbook: 네트워크 타임아웃 대응 절차"
+      },
+      {
+        "id": "memory-leak",
+        "score": 0.3163,
+        "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차"
+      }
+    ],
+    "legacy_seconds": 4.500034265220165e-06,
+    "semantic_seconds": 0.02786358300363645
+  }
+]

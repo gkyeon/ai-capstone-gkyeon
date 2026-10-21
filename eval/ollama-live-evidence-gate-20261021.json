@@ -1,0 +1,44 @@
+[
+  {
+    "seconds": 2.7,
+    "draft_written": 0,
+    "evidence_gate": [
+      {
+        "type": "EvidenceGate",
+        "passed": false,
+        "skipped": "write"
+      }
+    ],
+    "final": "자료 부족으로 검증할 수 없습니다. 질문에 언급된 billing-service은(는) 모니터링 대상에 없습니다(등록된 시스템: auth-service, cache-service, gateway-service, log-service, payments-s",
+    "cost_usd": 8.5e-05,
+    "error": null
+  },
+  {
+    "seconds": 1.2,
+    "draft_written": 0,
+    "evidence_gate": [
+      {
+        "type": "EvidenceGate",
+        "passed": false,
+        "skipped": "write"
+      }
+    ],
+    "final": "자료 부족으로 검증할 수 없습니다. 질문에 언급된 billing-service은(는) 모니터링 대상에 없습니다(등록된 시스템: auth-service, cache-service, gateway-service, log-service, payments-s",
+    "cost_usd": 8.5e-05,
+    "error": null
+  },
+  {
+    "seconds": 1.2,
+    "draft_written": 0,
+    "evidence_gate": [
+      {
+        "type": "EvidenceGate",
+        "passed": false,
+        "skipped": "write"
+      }
+    ],
+    "final": "자료 부족으로 검증할 수 없습니다. 질문에 언급된 billing-service은(는) 모니터링 대상에 없습니다(등록된 시스템: auth-service, cache-service, gateway-service, log-service, payments-s",
+    "cost_usd": 8.5e-05,
+    "error": null
+  }
+]
