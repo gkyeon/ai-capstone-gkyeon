@@ -142,7 +142,7 @@ agent/
   nodes/evidence_gate.py  근거 점검 노드
 eval/                     테스트, 평가·측정 스크립트, 실행 결과, baseline/
 doc/                      설계 결정 기록(ADR 15개), 상세 평가 기록
-submission/               결과보고서, 발표 PPT·PDF, 화면 캡처
+submission/               결과보고서, 발표 PPTX(시연 GIF 포함)·PDF(정지 화면), 화면 캡처
 ```
 
 재현 방법은 다음 절에 정리했다.
